@@ -1,0 +1,40 @@
+Moderate
+
+1. Compute average and median Purchase Amount (USD) by Category and Gender.
+
+2. Find top 10 states (Location) with the highest average Purchase Amount (USD).
+
+3. Show how Review Rating varies by Category and Season.
+
+4. Compare average purchase amount between Subscription Status = 'Yes' and 'No'.
+
+5. For each Shipping Type, count how many used a Promo Code and calculate average Purchase Amount (USD).
+
+Hard
+6. Find top 5 combinations of (Category, Season) with the highest average Purchase Amount (USD) and at least 50 customers.
+7. Identify which Payment Method yields the highest average Review Rating per Category.
+8. Compute correlation between Previous Purchases and Purchase Amount (USD) per Category.
+9. Determine how much Discount Applied = 'Yes' increases or decreases Purchase Amount (USD) for each Category (percentage difference).
+10. Segment customers by Frequency of Purchases and find which segment has the highest average Previous Purchases and Purchase Amount (USD)
+
+
+Customer segmentation:
+Classify each customer into spending tiers based on Purchase Amount (USD) —
+Low (<50), Medium (50–100), High (>100) — and compute count and average Review Rating for each tier.
+(Tests: CASE WHEN, GROUP BY)
+
+Category–Season performance:
+Find top 3 Category–Season combinations by average purchase amount, only for combinations with ≥30 customers.
+(Tests: GROUP BY multiple columns, HAVING, ORDER BY + LIMIT)
+
+Discount & promo overlap:
+Calculate how many transactions used both Discount Applied = 'Yes' and Promo Code Used = 'Yes', and what % they represent of total transactions.
+(Tests: conditional aggregation, CAST)
+
+Shipping preference by gender:
+For each Gender, find the most common Shipping Type. Return one row per gender.
+(Tests: mode logic using window functions / RANK())
+
+Previous purchases vs. frequency:
+Compute average Previous Purchases for each Frequency of Purchases group and rank them in descending order.
+(Tests: GROUP BY + RANK())

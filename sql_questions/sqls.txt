@@ -1,0 +1,41 @@
+Find each customer’s total spend, number of purchases (rows), and average review rating. Return top 20 customers by total spend.
+Output: Customer ID, total_spend, purchase_count, avg_review_rating
+Skills: GROUP BY, ORDER BY, aggregate functions.
+
+Create age buckets (<25, 25-34, 35-44, 45+) and compute average Purchase Amount (USD) and count of customers for each bucket and Gender. Sort by age bucket then gender.
+Output: age_bucket, gender, avg_purchase_amount, customer_count
+Skills: CASE for bucketing, GROUP BY, COUNT(DISTINCT Customer ID) vs COUNT.
+
+For each Category, report median and 90th percentile of Purchase Amount (USD).
+Output: Category, median_purchase, p90_purchase
+Skills: window functions or percentile_disc/percentile_cont, GROUP BY, aggregate/window percentile.
+
+Compute the average Purchase Amount for transactions with Discount Applied = 'Yes' and Promo Code Used = 'Yes', compared to transactions with neither applied. Provide the absolute and percent lift.
+Output: discount_promo_avg, no_discount_no_promo_avg, absolute_lift, percent_lift
+Skills: conditional aggregation, CASE, basic math.
+
+For customers with Subscription Status = 'Yes', find the most common Shipping Type and its frequency. Return top 3 shipping types for subscribers.
+Output: shipping_type, count
+Skills: FILTER/CASE, GROUP BY, ORDER BY, LIMIT.
+
+Hard (6–10)
+
+Identify outlier transactions within each Category and Season: a transaction is an outlier if Purchase Amount (USD) > mean + 3 * stddev of that (Category,Season). Return the transaction rows.
+Output: all original columns for matching rows plus category_mean, category_stddev
+Skills: window functions (AVG, STDDEV) over partition, CTEs, filtering on calculated columns.
+
+Compute a customer lifetime-value (CLV) estimate: for each Customer ID compute total_spend, previous_purchases, and CLV = total_spend * (1 + previous_purchases/10). Then return the top 5% customers by CLV and show their Location and Frequency of Purchases.
+Output: Customer ID, total_spend, previous_purchases, CLV, Location, Frequency of Purchases
+Skills: GROUP BY, window percentile (to get 95th percentile) or use COUNT and ordering with LIMIT on computed threshold.
+
+For each Category and Age bucket, calculate the average Review Rating for paid shipping types (Shipping Type in ('Express','Next Day Air')) and for free shipping. Then compute the difference and sort by biggest positive difference.
+Output: Category, age_bucket, paid_shipping_avg, free_shipping_avg, diff
+Skills: GROUP BY multiple keys, conditional aggregation, CASE, window if needed.
+
+Find customers who changed their usual Payment Method at least once. Define usual payment method as the mode for that customer. Return customers where at least one transaction uses a different method. Show Customer ID, usual_payment_method, distinct_payment_methods_count, and an example non-usual transaction (Purchase Amount (USD), Payment Method).
+Output: Customer ID, usual_payment_method, distinct_payment_methods_count, example_non_usual_payment, example_amount
+Skills: subqueries or window functions to compute mode (ROW_NUMBER over counts), HAVING COUNT(DISTINCT Payment Method) > 1, JOIN back to pick an example row.
+
+Estimate promotion lift using exact matching on Category and Age bucket: for each transaction where Promo Code Used = 'Yes' find a matched transaction (same Category, same age_bucket, Discount Applied equal) with Promo Code Used = 'No'. Compute average Purchase Amount (USD) for matched promo vs control and report average difference and p-value approximate using SQL (e.g., use counts and sums to compute t-stat components). Describe assumptions and return summary stats: matched_pairs, promo_avg, control_avg, avg_diff, t_stat_approx.
+Output: matched_pairs, promo_avg, control_avg, avg_diff, t_stat_approx
+Skills: self-join or lateral join for matching, CTEs, aggregate math for statistical test approximation, careful handling of one-to-one matching.
